@@ -79,8 +79,12 @@ document.getElementById("signup").addEventListener("click", async () => {
             `   <div>${message}</div>`,
             "</div>",
           ].join("");
-
-          alertPlaceholder.append(wrapper);
+          const alertPlaceholderCheck = document.getElementById(
+            "liveAlertPlaceholder"
+          );
+          if (alertPlaceholderCheck.innerHTML == "") {
+            alertPlaceholder.append(wrapper);
+          }
         };
 
         appendAlert("Please check your email for verification.", "success");
