@@ -1,5 +1,7 @@
 import API_URI from "./config/global.js";
 import signup from "./controllers/signup.js";
+
+/////////////////------signup
 function validateForm() {
   const name = document.getElementById("floatingName");
   const nameerr = document.getElementById("nameerr");
@@ -52,10 +54,12 @@ function validateForm() {
   return true;
 }
 document.getElementById("signup").addEventListener("click", async () => {
+  const freaze = document.getElementById("freaze");
   const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
   if (alertPlaceholder.innerHTML == "") {
     let form = await validateForm();
     if (form) {
+      freaze.style.display = "flex";
       const name = document.getElementById("floatingName");
       const email = document.getElementById("floatingInput");
 
@@ -68,10 +72,9 @@ document.getElementById("signup").addEventListener("click", async () => {
         email.value,
         confrimPassword.value
       );
-      if (response) {
+      console.log(response);
+      if (response === true) {
         let signupF = document.getElementById("signupF");
-        // signupF.style.display = "none";
-
         const appendAlert = (message, type) => {
           const wrapper = document.createElement("div");
           wrapper.innerHTML = [
@@ -84,15 +87,18 @@ document.getElementById("signup").addEventListener("click", async () => {
           );
           if (alertPlaceholderCheck.innerHTML == "") {
             alertPlaceholder.append(wrapper);
+            freaze.style.display = "none";
           }
         };
 
         appendAlert("Please check your email for verification.", "success");
-      } else {
+      } else if (response === false) {
         const emailerr = document.getElementById("emailerr");
         emailerr.innerText =
           "An account already exists for this email address.";
+        freaze.style.display = "none";
       }
     }
   }
 });
+/////////////////------signin
