@@ -37,6 +37,7 @@
       <main >
     <section class="container-fluid main d-flex justify-content-center p-5">
       <div class="container col-4 ">
+        <div id="liveAlertPlaceholder"></div>
         <h4 class="mb-3">Sign in
             to access App</h4>
         <div class="form-floating mb-3">
@@ -45,7 +46,9 @@
             class="form-control"
             id="floatingInput"
             placeholder="name@example.com"
+            value="karthicknammakkal@gmail.com"
           />
+          <p id="emailerr"></p>
           <label for="floatingInput">Email address</label>
         </div>
         <div class="form-floating mb-3">
@@ -54,13 +57,23 @@
             class="form-control"
             id="floatingPassword"
             placeholder="Password"
+            value="karthicknammakkal@gmail.com"
           />
+          <p id="Passworderr"></p>
           <label for="floatingPassword">Password</label>
         </div>
         <button type="button" class="btn btn-primary col-12 mb-3" id="signin">
           Sign In
         </button>
+        
         <a href="#">Forgot Password?</a>
+      </div>
+      <div id="freaze">
+        <div class="spinner"></div>
+        <p>
+          The server is taking longer than expected to respond. Please
+          wait a moment or try again later.
+        </p>
       </div>
     </section>
 </section>
@@ -74,5 +87,6 @@
     </div>
   </footer>
   <script type="module" src="./signin.js"></script>
+
   </body>
 </html>
