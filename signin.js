@@ -52,9 +52,9 @@ document.getElementById("signin").addEventListener("click", async () => {
         const appendAlert = (message, type) => {
           const wrapper = document.createElement("div");
           wrapper.innerHTML = [
-            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-            `   <div>${message}</div>`,
-            "</div>",
+            `<div class="alert alert-${type} alert-dismissible" role="alert">
+            <div>${message}</div>
+            </div>`,
           ];
           const alertPlaceholderCheck = document.getElementById(
             "liveAlertPlaceholder"
@@ -65,7 +65,7 @@ document.getElementById("signin").addEventListener("click", async () => {
           }
         };
 
-        appendAlert("Please check your email for verification.", "success");
+        appendAlert("", "success");
       } else if (response === false) {
         const emailerr = document.getElementById("emailerr");
         emailerr.innerText =
