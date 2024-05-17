@@ -1,6 +1,6 @@
 import API_URI from "./config/global.js";
 import signin from "./controllers/signin.js";
-
+import home from "./controllers/login.js";
 ////////////////////////////////////--------signin
 function validatesigninForm() {
   let flag;
@@ -33,7 +33,6 @@ function validatesigninForm() {
   return true;
 }
 document.getElementById("signin").addEventListener("click", async () => {
-  console.log("test");
   const freaze = document.getElementById("freaze");
   const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
   if (alertPlaceholder.innerHTML == "") {
@@ -47,31 +46,47 @@ document.getElementById("signin").addEventListener("click", async () => {
 
       let response = await signin(email.value, Password.value);
       console.log(response);
-      if (response != null) {
-        let signupF = document.getElementById("signupF");
-        const appendAlert = (message, type) => {
-          const wrapper = document.createElement("div");
-          wrapper.innerHTML = [
-            `<div class="alert alert-${type} alert-dismissible" role="alert">
+
+      let signupF = document.getElementById("signupF");
+      const appendAlert = (message, type) => {
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = [
+          `<div class="alert alert-${type} alert-dismissible" role="alert">
             <div>${message}</div>
             </div>`,
-          ];
-          const alertPlaceholderCheck = document.getElementById(
-            "liveAlertPlaceholder"
-          );
-          if (alertPlaceholderCheck.innerHTML == "") {
-            alertPlaceholder.append(wrapper);
-            freaze.style.display = "none";
-          }
-        };
-
-        appendAlert("", "success");
-      } else if (response === false) {
-        const emailerr = document.getElementById("emailerr");
-        emailerr.innerText =
-          "An account already exists for this email address.";
+        ];
+        const alertPlaceholderCheck = document.getElementById(
+          "liveAlertPlaceholder"
+        );
+        if (alertPlaceholderCheck.innerHTML == "") {
+          alertPlaceholder.append(wrapper);
+        }
         freaze.style.display = "none";
+      };
+
+      if (response.code == 401) {
+        appendAlert(response.Message, "danger");
+      } else {
+        localStorage.setItem("token", response.token);
+        // console.log(response.token);
+        freaze.style.display = "none";
+        window.location.href = "./app.html";
       }
     }
   }
 });
+
+///////////////////----------home
+const token = localStorage.getItem("token");
+async function homefun(params) {
+  let resp = await home(params);
+  // console.log(resp);
+  if (resp.id) {
+    window.location.href = "./app.html";
+  }
+}
+
+if (token) {
+  // console.log(token);
+  homefun(token);
+}
