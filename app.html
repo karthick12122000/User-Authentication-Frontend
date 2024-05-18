@@ -17,6 +17,25 @@
     ></script>
     <link rel="stylesheet" href="style.css" />
   </head>
+  <style>
+    .profile__popup {
+      display: none;
+      width: 200px;
+      height: 200px;
+      background: white;
+      position: absolute;
+      bottom: -200px;
+      border-radius: 6px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+      right: 0;
+    }
+    .profile__img:hover .profile__popup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
   <body>
     <header>
       <nav class="navbar navbar-light bg-light">
@@ -34,7 +53,10 @@
             />
             User Authentication
           </a>
-          <div class="col" style="text-align: right">
+          <div
+            class="col position-relative profile__img"
+            style="text-align: right"
+          >
             <img
               src="./assets/profile.jpg"
               alt="profile"
@@ -42,6 +64,11 @@
               height="50px"
               class="d-inline-block align-text-top me-3 rounded-circle"
             />
+            <div class="profile__popup">
+              <button class="btn btn-light shadow-sm" id="logout">
+                Log Out
+              </button>
+            </div>
           </div>
         </div>
       </nav>

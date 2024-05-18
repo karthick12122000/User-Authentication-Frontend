@@ -35,44 +35,37 @@
         </nav>
       </header>
       <main >
-    <section class="container-fluid main d-flex justify-content-center p-5">
+    <section class="container-fluid main d-flex justify-content-center p-5 flex-column">
       <div class="container col-4 ">
         <div id="liveAlertPlaceholder"></div>
-        <h4 class="mb-3">Sign in
-            to access App</h4>
-        <div class="form-floating mb-3">
-          <input
-            type="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-            value="karthicknammakkal@gmail.com"
-          />
-          <p id="emailerr"></p>
-          <label for="floatingInput">Email address</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input
-            type="password"
-            class="form-control"
-            id="floatingPassword"
-            placeholder="Password"
-            value="karthicknammakkal@gmail.com"
-          />
-          <p id="Passworderr"></p>
-          <label for="floatingPassword">Password</label>
-        </div>
-        <button type="button" class="btn btn-primary col-12 mb-3" id="signin">
-          Sign In
-        </button>
-        <a href="./index.html" style="text-decoration: none; color: #ffffff;">
-        <button type="button" class="btn btn-secondary col-12 mb-3" id="">
-         Sign Up
-        
-        </button></a>
-        <a href="./Forget.html">Forgot Password?</a>
-        
+        <h4 class="mb-3">To Reset Password</h4>
+         
+    <div class="forgotpwd--form   ">
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="name@example.com"
+          value="karthicknammakkal@gmail.com"
+        />
+        <p id="emailerr"></p>
+        <label for="floatingInput">Email address</label>
       </div>
+  
+      <button type="button" class="btn btn-primary col-12 mb-3" id="fpwd">
+       Submit
+      </button>
+      <a href="./sign_in.html" style="text-decoration: none; color: #ffffff;">
+      <button type="button" class="btn btn-secondary col-12 mb-3" >
+       Sign In
+      
+      </button></a>
+      
+      
+    </div>
+  </div>
+  </div>
       <div id="freaze">
         <div class="spinner"></div>
         <p>
@@ -81,7 +74,7 @@
         </p>
       </div>
     </section>
-</section>
+
 </main>
 <footer class="d-flex justify-content-center align-items-center bg-dark">
     <div class="attribution text-light">
