@@ -35,8 +35,8 @@
         </nav>
       </header>
       <main >
-    <section class="container-fluid main d-flex justify-content-center p-5 flex-column">
-      <div class="container col-4 ">
+    <section class="container-fluid main d-flex justify-content-center  p-2 pt-5 p-lg-5 flex-column">
+      <div class="container col-12 col-md-8 col-lg-4 ">
         <div id="liveAlertPlaceholder"></div>
         <h4 class="mb-3">To Reset Password</h4>
          
@@ -84,7 +84,70 @@
       >.
     </div>
   </footer>
-  <script type="module" src="./signin.js"></script>
+ <script type="module">
+  import API_URI from "./config/global.js";
+import forgot from "./controllers/forgot.js";
+  function validatesigninForm() {
+  let flag;
+  const email = document.getElementById("floatingInput");
+  const emailerr = document.getElementById("emailerr");
+  var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/;
+  if (email.value === "") {
+    flag = true;
+    emailerr.innerText = "Email should not be empty!";
+  } else if (emailPattern.test(email.value) === false) {
+    emailerr.innerText = "Please enter a valid email address";
+  } else {
+    emailerr.innerText = "";
+  }
+  return true;
+}
+document.getElementById("fpwd").addEventListener("click", async () => {
+  const freaze = document.getElementById("freaze");
+  const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+  if (alertPlaceholder.innerHTML == "") {
+    let form = await validatesigninForm();
+    if (form) {
+      freaze.style.display = "flex";
+
+      const email = document.getElementById("floatingInput");
+
+      let response = await forgot(email.value);
+      console.log(response);
+      const appendAlert = (message, type) => {
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = [
+          `<div class="alert alert-${type} alert-dismissible" role="alert">
+            <div>${message}</div>
+            </div>`,
+        ];
+        const alertPlaceholderCheck = document.getElementById(
+          "liveAlertPlaceholder"
+        );
+        if (alertPlaceholderCheck.innerHTML == "") {
+          alertPlaceholder.append(wrapper);
+        }
+        freaze.style.display = "none";
+      };
+
+      if (response.code == 401) {
+        appendAlert(response.message, "danger");
+      } else {
+        if(response.message=="Invalid Email"){
+        appendAlert(response.message, "danger");
+        }
+        else if(response.message=="Password reset email was sent successfully."){
+        appendAlert(response.message, "success");
+        }
+
+        freaze.style.display = "none";
+      
+      }
+    }
+  }
+});
+
+ </script>
 
   </body>
 </html>
