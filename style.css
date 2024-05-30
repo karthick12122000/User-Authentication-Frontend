@@ -39,6 +39,7 @@ footer {
   padding: 20px;
   gap: 20px;
   text-align: center;
+  left: 0;
 }
 .spinner {
   width: 100px;
