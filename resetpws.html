@@ -86,7 +86,87 @@
       >.
     </div>
   </footer>
-  <script type="module" src="./reset.js"></script>
+  <script type="module" >
+  import API_URI from "./config/global.js";
+import reset from "./controllers/reset.js";
+  function validatesigninForm() {
+  let flag;
+  const password = document.getElementById("floatingPassword");
+  const Passworderr = document.getElementById("Passworderr");
 
+  if (password.value === "") {
+    flag = true;
+    Passworderr.innerText = "Password  should not be empty!";
+  } else if (password.value.length < 8) {
+    flag = true;
+    Passworderr.innerText = "Password cannot be less than 8 characters";
+  } else {
+    Passworderr.innerText = "";
+  }
+
+  const confrimPassword = document.getElementById("floatingConfrimPassword");
+  const ConfrimPassworderr = document.getElementById("ConfrimPassworderr");
+
+  if (confrimPassword.value === "") {
+    ConfrimPassworderr.innerText = "Confrim Password should not be empty!";
+  } else if (confrimPassword.value != password.value) {
+    ConfrimPassworderr.innerText =
+      "The password and confirmed password do not match!";
+    flag = true;
+  } else {
+    ConfrimPassworderr.innerText = "";
+  }
+  if (flag) {
+    return false;
+  }
+  return true;
+}
+document.getElementById("Reset").addEventListener("click", async () => {
+  const freaze = document.getElementById("freaze");
+  const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+  if (alertPlaceholder.innerHTML == "") {
+    let form = await validatesigninForm();
+    if (form) {
+      freaze.style.display = "flex";
+
+      const password = document.getElementById("floatingConfrimPassword");
+console.log(window.location.href);
+const searchParams = new URLSearchParams(window.location.search);
+// console.log(searchParams.get("token"));
+      let response = await reset(searchParams.get("token"),password);
+      console.log(response);
+      const appendAlert = (message, type) => {
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = [
+          `<div class="alert alert-${type} alert-dismissible" role="alert">
+            <div>${message}</div>
+            </div>`,
+        ];
+        const alertPlaceholderCheck = document.getElementById(
+          "liveAlertPlaceholder"
+        );
+        if (alertPlaceholderCheck.innerHTML == "") {
+          alertPlaceholder.append(wrapper);
+        }
+        freaze.style.display = "none";
+      };
+
+      if (response.code == 401) {
+        appendAlert(response.message, "danger");
+      } else {
+        if(response.message=="Invalid Email"){
+        appendAlert(response.message, "danger");
+        }
+        else if(response.message=="Password reset email was sent successfully."){
+        appendAlert(response.message, "success");
+        }
+
+        freaze.style.display = "none";
+      
+      }
+    }
+  }
+});
+</script>
   </body>
 </html>

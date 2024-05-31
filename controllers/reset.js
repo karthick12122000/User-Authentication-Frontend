@@ -1,14 +1,12 @@
 import API_URI from "../config/global.js";
-async function forgot(email) {
-  // console.log(email);
-  // console.log(API_URI);
+async function reset(token, password) {
   try {
-    const response = await fetch(API_URI + "/forgot", {
+    const response = await fetch(API_URI + "/forgot/reset", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: email }),
+      body: JSON.stringify({ token: token, password: password }),
     });
     if (!response.ok) {
       throw new Error(`Request failed with status: ${response.status}`);
@@ -23,4 +21,4 @@ async function forgot(email) {
 
   return "error";
 }
-export default forgot;
+export default reset;
